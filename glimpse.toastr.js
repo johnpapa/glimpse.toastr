@@ -11,7 +11,17 @@
     var preexistingToasts = [];
     var rendered = false;
     var toastrPanel;
-    var headerRow = ['Toast Id', 'State', 'Date', 'Toastr Options', 'Toast Options'];
+    var headerRow = [
+        'Id',
+        'Type',
+        'State',
+        'Message',
+        'Start',
+        'End',
+        'LifeTime',
+        'This Toast\'s Options',
+        'All Toastr Options'
+    ];
     //var layout = [
     //    [{ data: 0, key: true, width: '8%' }, { data: 1, width: '8%' }, { data: 2, width: '28%' }, { data: 3, width: '28%' }, { data: 4, width: '28%' }]
     //];
@@ -20,22 +30,68 @@
 
     function receiveToasts(args) {
         var data = args;
-        data.map.toastId = data.toastId; // Forces collapse (need 5 properties for this)
+        //data.map.toastId = data.toastId; // Forces collapse (need 5 properties for this)
         !rendered ? preexistingToasts.push(data) : write(data);
     }
 
-    function write(data) {
-        var pivotedData = [data.toastId, data.state, data.timestamp, data.options, data.map, stateGetStyle(data)];
-        //render.engine.append(toastrPanel, [headerRow, pivotedData, { layout: layout }]);
-        render.engine.append(toastrPanel, [headerRow, pivotedData]);
+    function elapsedMs(start, end) {
+        return end && start ? end.getTime() - start.getTime() + ' ms' : '';
     }
 
-    function stateGetStyle(data) {
+    function formatDateTime(date) {
+        var sep = ':';
+        return !!(date && date.getMonth) ? date.getFullYear().toString() + sep +
+            padDigits(date.getMonth() + 1) + sep +
+            padDigits(date.getDate()) + sep +
+            padDigits(date.getHours()) + sep +
+            padDigits(date.getMinutes()) + sep +
+            padDigits(date.getSeconds()) + sep +
+            padDigits(date.getMilliseconds(), '0', 3) : '';
+
+        function padDigits(val, pad, count) {
+            var value = val.toString ? val.toString() : val;
+            count = count || 2;
+            var padding = Array(count + 1).join(pad || '0');
+            return (padding + (value)).slice(-count);
+        }
+    }
+    
+    function write(data) {
+        if (data.length) {
+            for (var i = 0; i < data.length; i++) {
+                write(data[i]);
+            }
+            return;
+        }
+
+        var startTime = formatDateTime(data.startTime);
+        var endTime = formatDateTime(data.endTime);
+        var lifetime = elapsedMs(data.startTime, data.endTime);
+        //var dateData = [['start', 'end', 'lifetime'], [startTime, endTime, lifetime]];
+        //var dateData = { start: startTime, end: endTime, lifetime: lifetime };
+        //var dateData = { start: startTime, end: endTime };
+        // Must match sequence of headers
+        var pivotedData = [
+            data.toastId,
+            data.map.type,
+            data.state,
+            data.map.message,
+            startTime, 
+            endTime, 
+            lifetime,
+            data.map,
+            data.options,
+            getStateStyle(data)
+        ];
+        render.engine.prepend(toastrPanel, [headerRow, pivotedData]); // , { layout: layout }
+    }
+
+    function getStateStyle(data) {
         return data.state === 'visible' ? 'info' : '';
     }
 
     pubsub.subscribe('action.panel.rendered.toastr', function (args) {
-        console.log('rendered glimpse.toastr');
+        //console.log('rendered glimpse.toastr');
         toastrPanel = args.panel;
         rendered = true;
         render.engine.insert(toastrPanel, [headerRow]);
