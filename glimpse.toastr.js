@@ -22,9 +22,6 @@
         'This Toast\'s Options',
         'All Toastr Options'
     ];
-    //var layout = [
-    //    [{ data: 0, key: true, width: '8%' }, { data: 1, width: '8%' }, { data: 2, width: '28%' }, { data: 3, width: '28%' }, { data: 4, width: '28%' }]
-    //];
 
     toastr.subscribe(receiveToasts);
 
@@ -67,9 +64,7 @@
         var startTime = formatDateTime(data.startTime);
         var endTime = formatDateTime(data.endTime);
         var lifetime = elapsedMs(data.startTime, data.endTime);
-        //var dateData = [['start', 'end', 'lifetime'], [startTime, endTime, lifetime]];
-        //var dateData = { start: startTime, end: endTime, lifetime: lifetime };
-        //var dateData = { start: startTime, end: endTime };
+
         // Must match sequence of headers
         var pivotedData = [
             data.toastId,
@@ -102,29 +97,13 @@
         }
     });
 
-    //pubsub.subscribe('action.panel.rendering.toastr', function (args) {
-    //    console.log('rendering glimpse.toastr');
-    //});
-    
-    //pubsub.subscribe('action.panel.showed.toastr', function (args) {
-    //    console.log('showed glimpse.toastr');
-    //});
-
-    //pubsub.subscribe('action.panel.showing.toastr', function (args) {
-    //    console.log('showing glimpse.toastr');
-    //});
-
-    //pubsub.subscribe('action.panel.hiding.toastr', function (args) {
-    //    console.log('hiding glimpse.toastr');
-    //});
-
     var config = {
         key: 'toastr',
         payload: {
             name: 'toastr',
             version: '0.1.0',
             isPermanent: true,
-            data: 'Loading...'
+            data: 'Loading ...'
         },
         metadata: {
             documentationUri: "http://jpapa.me/c7toastr"
@@ -134,3 +113,25 @@
     tab.register(config);
 
 })(jQueryGlimpse, glimpse.pubsub, glimpse.tab, glimpse.render, window.toastr);
+
+/* #region WIP */
+//pubsub.subscribe('action.panel.rendering.toastr', function (args) {
+//    console.log('rendering glimpse.toastr');
+//});
+
+//pubsub.subscribe('action.panel.showed.toastr', function (args) {
+//    console.log('showed glimpse.toastr');
+//});
+
+//pubsub.subscribe('action.panel.showing.toastr', function (args) {
+//    console.log('showing glimpse.toastr');
+//});
+
+//pubsub.subscribe('action.panel.hiding.toastr', function (args) {
+//    console.log('hiding glimpse.toastr');
+//});
+
+//var layout = [
+//    [{ data: 0, key: true, width: '8%' }, { data: 1, width: '8%' }, { data: 2, width: '28%' }, { data: 3, width: '28%' }, { data: 4, width: '28%' }]
+//];
+/* #endregion */
