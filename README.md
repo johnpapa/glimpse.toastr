@@ -4,7 +4,7 @@ Glimpse.Toastr Plugin
 Source code for the Glimpse.Toastr plugin for integrating toastr diagnostics into Glimpse
 
 ## Current Version
-0.1.0
+0.2.0
 
 ## Demo
 Demo can be found [here](http://CodeSeven.github.com/toastr)
@@ -24,6 +24,8 @@ Use toastr
 	})();
 
 Click the G icon in the bottom right of your browser and enjoy!
+
+![](//johnpapa.net/wp-content/images/glimpse.toastr.png)
 
 
 ## Dependencies
