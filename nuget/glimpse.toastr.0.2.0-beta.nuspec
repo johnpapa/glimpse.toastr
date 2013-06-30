@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>glimpse.toastr</id>
+        <version>0.2.0-beta</version>
+        <title>Toastr Glimpse Plugin</title>
+        <authors>John Papa</authors>
+        <owners>John Papa</owners>
+        <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+        <projectUrl>https://github.com/johnpapa/glimpse.toastr</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Demo can be found here 
+http://codeseven.github.com/toastr
+
+Usage:
+Link to jquery, toastr.css, toastr.js, glimpse.js and glimpse.toastr.js
+
+&lt;script src="jquery.js"&gt;&lt;/script&gt;
+&lt;script src="toastr.js"&gt;&lt;/script&gt;
+&lt;script src="glimpse.js"&gt;&lt;/script&gt;
+&lt;script src="glimpse.toastr.js"&gt;&lt;/script&gt;
+
+Use toastr
+
+$(function(){ 
+    toastr.info('testing'); 
+})();
+
+Click the G icon in the bottom right of your browser and enjoy!</description>
+        <summary>Plugin for integrating toastr diagnostics into Glimpse</summary>
+        <releaseNotes>This beta version depends on glimpse.ks, which for  now is included in this package. Once the glimpse.js file has its own NuGet package I will change this and make it a dependency.</releaseNotes>
+        <copyright>Copyright © 2013 John Papa</copyright>
+        <language>en-US</language>
+        <tags>toastr, toast, notification, dialog, jquery, glimpse</tags>
+        <dependencies>
+            <dependency id="toastr" version="1.3.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="content\scripts\glimpse.js" target="content\scripts\glimpse.js" />
+        <file src="content\scripts\glimpse.toastr.js" target="content\scripts\glimpse.toastr.js" />
+    </files>
+</package>
