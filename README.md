@@ -25,7 +25,7 @@ Use toastr
 
 Click the G icon in the bottom right of your browser and enjoy!
 
-![](//johnpapa.net/wp-content/images/glimpse.toastr.png)
+![](http://johnpapa.net/wp-content/images/glimpse.toastr.png)
 
 
 ## Dependencies
